@@ -1086,13 +1086,281 @@
   <div class="section-wrap">
     <p class="section-eyebrow">MAUNi Recovery Coach</p>
     <h2>Ask the <em>AI assistant.</em></h2>
-    <div class="assistant-card">
-      <p class="assistant-tag">Available 24/7 · Trained in the MAUNi Methodology</p>
-      <h3>Ask about recovery, referrals, consultations, or finding the right pathway for <em>yourself or someone you care about.</em></h3>
-      <p>The assistant will route you to the right person — David, Charlie, or the wider MAUNi team — and help you take a single, clear next step.</p>
-      <a href="https://davidcollinscoaching.com" class="btn-primary" target="_blank" rel="noopener">Open AI Assistant ↗</a>
-      <p class="assistant-disclaimer">This is not a clinical or emergency service. If you or someone else is in immediate danger, contact your local emergency services now. All conversations are treated in the strictest confidence.</p>
+    <p class="section-intro">Available 24/7. Trained in the MAUNi methodology. Ask about recovery, referrals, consultations, or finding the right pathway for yourself or someone you care about.</p>
+
+    <!-- CHAT WIDGET -->
+    <style>
+      .mauni-chat {
+        background: var(--ink);
+        border-radius: 4px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        max-width: 720px;
+        border: 1px solid rgba(255,255,255,0.08);
+      }
+      .mauni-chat-header {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        padding: 1.2rem 1.5rem;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        background: rgba(255,255,255,0.03);
+      }
+      .mauni-chat-avatar {
+        width: 36px; height: 36px;
+        border-radius: 50%;
+        overflow: hidden;
+        flex-shrink: 0;
+        background: #1a1a1a;
+      }
+      .mauni-chat-avatar img {
+        width: 100%; height: 100%;
+        object-fit: cover; display: block;
+      }
+      .mauni-chat-header-name {
+        font-size: 0.82rem; font-weight: 700;
+        color: #FAF8F4; line-height: 1.2;
+      }
+      .mauni-chat-header-status {
+        font-size: 0.65rem; color: #4ADE80;
+        font-weight: 600;
+        display: flex; align-items: center; gap: 0.3rem;
+      }
+      .mauni-chat-header-status::before {
+        content: ''; width: 6px; height: 6px;
+        border-radius: 50%; background: #4ADE80; display: inline-block;
+      }
+      .mauni-chat-messages {
+        padding: 1.2rem 1.5rem;
+        display: flex; flex-direction: column; gap: 1rem;
+        min-height: 220px; max-height: 400px;
+        overflow-y: auto; scroll-behavior: smooth;
+      }
+      .mauni-chat-messages::-webkit-scrollbar { width: 4px; }
+      .mauni-chat-messages::-webkit-scrollbar-thumb {
+        background: rgba(255,255,255,0.1); border-radius: 2px;
+      }
+      .mauni-msg {
+        display: flex; flex-direction: column;
+        gap: 0.25rem; max-width: 88%;
+      }
+      .mauni-msg.user { align-self: flex-end; align-items: flex-end; }
+      .mauni-msg.assistant { align-self: flex-start; align-items: flex-start; }
+      .mauni-msg-bubble {
+        padding: 0.7rem 1rem;
+        font-size: 0.85rem; line-height: 1.65; border-radius: 3px;
+      }
+      .mauni-msg.user .mauni-msg-bubble { background: #B8440C; color: #FAF8F4; }
+      .mauni-msg.assistant .mauni-msg-bubble {
+        background: rgba(255,255,255,0.07); color: rgba(250,248,244,0.9);
+      }
+      .mauni-msg-bubble p { margin: 0 0 0.5rem 0; }
+      .mauni-msg-bubble p:last-child { margin-bottom: 0; }
+      .mauni-typing .mauni-msg-bubble {
+        display: flex; align-items: center; gap: 4px; padding: 0.8rem 1rem;
+      }
+      .mauni-typing-dot {
+        width: 6px; height: 6px; border-radius: 50%;
+        background: rgba(255,255,255,0.4);
+        animation: mauniBounce 1.2s ease-in-out infinite;
+      }
+      .mauni-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+      .mauni-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+      @keyframes mauniBounce {
+        0%,60%,100% { transform: translateY(0); opacity: 0.4; }
+        30% { transform: translateY(-5px); opacity: 1; }
+      }
+      .mauni-chat-chips {
+        display: flex; flex-wrap: wrap; gap: 0.4rem;
+        padding: 0 1.5rem 1rem;
+      }
+      .mauni-chip {
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.12);
+        color: rgba(250,248,244,0.6);
+        font-size: 0.7rem; font-weight: 500;
+        padding: 0.3rem 0.7rem; border-radius: 2px;
+        cursor: pointer; transition: all 0.15s; font-family: inherit;
+      }
+      .mauni-chip:hover {
+        border-color: #B8440C; color: #FAF8F4;
+        background: rgba(184,68,12,0.1);
+      }
+      .mauni-chat-input-wrap {
+        display: flex; border-top: 1px solid rgba(255,255,255,0.07);
+      }
+      .mauni-chat-input {
+        flex: 1; background: transparent; border: none; outline: none;
+        padding: 1rem 1.2rem; font-size: 0.85rem; color: #FAF8F4;
+        font-family: inherit; resize: none; line-height: 1.5;
+        min-height: 52px; max-height: 120px;
+      }
+      .mauni-chat-input::placeholder { color: rgba(250,248,244,0.25); }
+      .mauni-chat-send {
+        background: #B8440C; border: none; padding: 0 1.4rem;
+        color: #FAF8F4; font-size: 0.78rem; font-weight: 700;
+        letter-spacing: 0.06em; cursor: pointer; transition: background 0.15s;
+        font-family: inherit; flex-shrink: 0;
+      }
+      .mauni-chat-send:hover { background: #9a3509; }
+      .mauni-chat-send:disabled {
+        background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.3);
+        cursor: not-allowed;
+      }
+      .mauni-chat-disclaimer {
+        padding: 0.7rem 1.5rem; font-size: 0.65rem;
+        color: rgba(250,248,244,0.25); line-height: 1.5;
+        border-top: 1px solid rgba(255,255,255,0.05);
+      }
+    </style>
+
+    <div class="mauni-chat" id="mauniChat">
+      <div class="mauni-chat-header">
+        <div class="mauni-chat-avatar">
+          <img src="https://mauni.app/wp-content/uploads/2023/03/cropped-m-270x270.jpg" alt="MAUNi">
+        </div>
+        <div>
+          <div class="mauni-chat-header-name">MAUNi Recovery Coach</div>
+          <div class="mauni-chat-header-status">Available now</div>
+        </div>
+      </div>
+
+      <div class="mauni-chat-messages" id="mauniMessages">
+        <div class="mauni-msg assistant">
+          <div class="mauni-msg-bubble">
+            Welcome. Ask me about recovery, the MAUNi methodology, referral pathways, or finding the right support for yourself or someone you care about.
+          </div>
+        </div>
+      </div>
+
+      <div class="mauni-chat-chips" id="mauniChips">
+        <button class="mauni-chip" onclick="mauniSendChip(this)">What is the Collins Window?</button>
+        <button class="mauni-chip" onclick="mauniSendChip(this)">What are the 3 Cs and 3 As?</button>
+        <button class="mauni-chip" onclick="mauniSendChip(this)">Explain recovery capital</button>
+        <button class="mauni-chip" onclick="mauniSendChip(this)">What is HALTS?</button>
+        <button class="mauni-chip" onclick="mauniSendChip(this)">How do I make a referral?</button>
+        <button class="mauni-chip" onclick="mauniSendChip(this)">What is lived experience in recovery?</button>
+      </div>
+
+      <div class="mauni-chat-input-wrap">
+        <textarea
+          class="mauni-chat-input"
+          id="mauniInput"
+          placeholder="Ask about recovery, referrals, or the MAUNi methodology…"
+          rows="1"
+          onkeydown="mauniHandleKey(event)"
+          oninput="mauniAutoResize(this)"
+        ></textarea>
+        <button class="mauni-chat-send" id="mauniSend" onclick="mauniSend()">Send</button>
+      </div>
+
+      <div class="mauni-chat-disclaimer">
+        Not for emergencies or urgent clinical situations. If someone is in immediate danger, contact emergency services now. All conversations treated in the strictest confidence.
+      </div>
     </div>
+
+    <script>
+    (function() {
+      const API_URL = 'https://mauni-api.wedoharleyst.workers.dev/chat';
+      let history = [];
+      let isLoading = false;
+
+      function addMessage(role, text) {
+        const container = document.getElementById('mauniMessages');
+        const msg = document.createElement('div');
+        msg.className = `mauni-msg ${role}`;
+        const bubble = document.createElement('div');
+        bubble.className = 'mauni-msg-bubble';
+        const paragraphs = text.split(/\n\n+/);
+        bubble.innerHTML = paragraphs.map(p => `<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
+        msg.appendChild(bubble);
+        container.appendChild(msg);
+        container.scrollTop = container.scrollHeight;
+        return msg;
+      }
+
+      function addTyping() {
+        const container = document.getElementById('mauniMessages');
+        const msg = document.createElement('div');
+        msg.className = 'mauni-msg assistant mauni-typing';
+        msg.id = 'mauniTyping';
+        msg.innerHTML = `<div class="mauni-msg-bubble">
+          <span class="mauni-typing-dot"></span>
+          <span class="mauni-typing-dot"></span>
+          <span class="mauni-typing-dot"></span>
+        </div>`;
+        container.appendChild(msg);
+        container.scrollTop = container.scrollHeight;
+      }
+
+      function removeTyping() {
+        const el = document.getElementById('mauniTyping');
+        if (el) el.remove();
+      }
+
+      function hideChips() {
+        const chips = document.getElementById('mauniChips');
+        if (chips) chips.style.display = 'none';
+      }
+
+      window.mauniSendChip = function(btn) {
+        document.getElementById('mauniInput').value = btn.textContent.trim();
+        hideChips();
+        mauniSend();
+      };
+
+      window.mauniHandleKey = function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); mauniSend(); }
+      };
+
+      window.mauniAutoResize = function(el) {
+        el.style.height = 'auto';
+        el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+      };
+
+      window.mauniSend = async function() {
+        if (isLoading) return;
+        const input = document.getElementById('mauniInput');
+        const sendBtn = document.getElementById('mauniSend');
+        const message = input.value.trim();
+        if (!message) return;
+
+        hideChips();
+        addMessage('user', message);
+        history.push({ role: 'user', content: message });
+        input.value = '';
+        input.style.height = 'auto';
+        isLoading = true;
+        sendBtn.disabled = true;
+        sendBtn.textContent = '...';
+        addTyping();
+
+        try {
+          const res = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message, history: history.slice(0, -1) }),
+          });
+          const data = await res.json();
+          removeTyping();
+          const reply = data.reply || data.error || 'Something went wrong. Please try again.';
+          addMessage('assistant', reply);
+          history.push({ role: 'assistant', content: reply });
+          if (history.length > 20) history = history.slice(-20);
+        } catch(err) {
+          removeTyping();
+          addMessage('assistant', "I'm having trouble connecting right now. Please try again in a moment.");
+        }
+
+        isLoading = false;
+        sendBtn.disabled = false;
+        sendBtn.textContent = 'Send';
+        input.focus();
+      };
+    })();
+    </script>
+
   </div>
 </section>
 
