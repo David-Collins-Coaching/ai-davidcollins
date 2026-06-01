@@ -1272,8 +1272,7 @@
         msg.className = `mauni-msg ${role}`;
         const bubble = document.createElement('div');
         bubble.className = 'mauni-msg-bubble';
-        const paragraphs = text.split(/\n\n+/);
-        bubble.innerHTML = paragraphs.map(p => `<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
+        bubble.innerHTML = marked.parse(text);
         msg.appendChild(bubble);
         container.appendChild(msg);
         container.scrollTop = container.scrollHeight;
@@ -1756,5 +1755,6 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </body>
 </html>
