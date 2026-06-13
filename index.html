@@ -11,7 +11,6 @@
   <meta property="og:url" content="https://ai-davidcollins.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* Your original styles (unchanged) */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -30,6 +29,8 @@
       --light:     #8A8278;
     }
 
+    html { scroll-behavior: smooth; }
+
     body {
       font-family: 'Inter', system-ui, sans-serif;
       background: var(--cream);
@@ -39,51 +40,1719 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ... (all your original CSS remains exactly the same) ... */
-    /* I kept it short here to save space - your full CSS is still inside */
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250,248,244,0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+
+    .nav-brand {
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 0.2rem;
+    }
+
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 0.4rem 0.7rem;
+      border-radius: 4px;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+      background: var(--border);
+    }
+
+    .nav-links .nav-ext {
+      color: var(--ink);
+      border: 1px solid var(--border);
+    }
+
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      min-height: calc(100vh - 56px);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem 4rem;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
+    }
+
+    .hero-body {
+      font-size: 1rem;
+      color: var(--slate);
+      line-height: 1.75;
+      max-width: 480px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 0.7rem 1.4rem;
+      background: var(--ink);
+      color: var(--cream);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border-radius: 3px;
+      transition: background 0.15s;
+    }
+    .btn-primary:hover { background: var(--accent); }
+
+    .btn-outline {
+      display: inline-block;
+      padding: 0.7rem 1.4rem;
+      background: transparent;
+      color: var(--ink);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .btn-outline:hover { border-color: var(--ink); background: var(--ink); color: var(--cream); }
+
+    .hero-card {
+      background: var(--ink);
+      border-radius: 4px;
+      padding: 2.5rem;
+      color: var(--cream);
+      position: relative;
+      overflow: hidden;
+      align-self: start;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+    }
+
+    .hero-card-img-wrap {
+      overflow: hidden;
+      margin: -2.5rem -2.5rem 1.5rem -2.5rem;
+      width: calc(100% + 5rem);
+      height: 260px;
+      border-bottom: 3px solid var(--accent);
+    }
+
+    .hero-card img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center 20%;
+    }
+
+    .hero-card-name {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .hero-card-role {
+      font-size: 0.72rem;
+      color: var(--gold);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-card-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-stat {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .hero-stat-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .hero-card-quote {
+      font-size: 0.78rem;
+      font-style: italic;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.65;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 1rem;
+    }
+
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-card { display: none; }
+    }
+
+    /* ── CREDENTIALS STRIP ── */
+    .credentials-strip {
+      background: var(--ink);
+      border-top: 2px solid var(--accent);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .credentials-strip-inner {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .cred-item {
+      flex: 1;
+      min-width: 140px;
+      padding: 1.1rem 1.4rem;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .cred-item:last-child { border-right: none; }
+
+    .cred-label {
+      font-size: 0.56rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.8;
+    }
+
+    .cred-value {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--cream);
+      line-height: 1.2;
+    }
+
+    @media (max-width: 680px) {
+      .credentials-strip-inner { flex-direction: column; }
+      .cred-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    }
+
+    /* ── SECTION WRAPPER ── */
+    .section-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-eyebrow {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-wrap h2 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-wrap h2 em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--accent);
+    }
+
+    .section-intro {
+      font-size: 0.95rem;
+      color: var(--slate);
+      max-width: 600px;
+      line-height: 1.75;
+      margin-bottom: 3rem;
+    }
+
+    /* ── AI ASSISTANT ── */
+    .assistant-card {
+      background: var(--ink);
+      border-radius: 4px;
+      padding: 2.5rem;
+      color: var(--cream);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    .assistant-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--gold));
+    }
+
+    .assistant-tag {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .assistant-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      line-height: 1.2;
+    }
+
+    .assistant-card h3 em {
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .assistant-card p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+      max-width: 560px;
+      margin-bottom: 1.5rem;
+    }
+
+    .assistant-disclaimer {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.3);
+      line-height: 1.6;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 1rem;
+      margin-top: 1rem;
+    }
+
+    /* ── ECOSYSTEM GRID ── */
+    .ecosystem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .eco-card {
+      background: var(--cream);
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      transition: background 0.15s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .eco-card:hover { background: var(--parchment); }
+
+    .eco-tag {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .eco-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+
+    .eco-desc {
+      font-size: 0.78rem;
+      color: var(--slate);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .eco-url {
+      font-size: 0.7rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-top: 0.3rem;
+    }
+
+    /* ── FRAMEWORK SECTION ── */
+    .provenance-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      margin-bottom: 3rem;
+      border: 1px solid var(--rule);
+      overflow: hidden;
+    }
+
+    .prov-step {
+      flex: 1;
+      min-width: 140px;
+      padding: 1.3rem 1.5rem;
+      background: var(--cream);
+      border-right: 1px solid var(--rule);
+      position: relative;
+    }
+
+    .prov-step:last-child { border-right: none; }
+    .prov-step::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+    }
+
+    .prov-step.s1::before { background: var(--slate); }
+    .prov-step.s2::before { background: var(--gold); }
+    .prov-step.s3::before { background: var(--accent); }
+    .prov-step.s4::before { background: var(--sage); }
+    .prov-step.s5::before { background: var(--ink); }
+
+    .prov-date {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--light);
+      margin-bottom: 0.25rem;
+    }
+
+    .prov-event {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.25;
+      margin-bottom: 0.2rem;
+    }
+
+    .prov-detail {
+      font-size: 0.72rem;
+      color: var(--slate);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 680px) {
+      .provenance-bar { flex-direction: column; }
+      .prov-step { border-right: none; border-bottom: 1px solid var(--rule); }
+    }
+
+    /* Framework model cards */
+    .framework-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      margin-bottom: 2.5rem;
+    }
+
+    .fw-card {
+      background: var(--cream);
+      padding: 1.7rem;
+      transition: background 0.15s;
+    }
+
+    .fw-card:hover { background: var(--parchment); }
+
+    .fw-card-tag {
+      font-size: 0.57rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .fw-card-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+      line-height: 1.25;
+    }
+
+    .fw-card-body {
+      font-size: 0.78rem;
+      color: var(--slate);
+      line-height: 1.65;
+    }
+
+    /* IP trademark block */
+    .ip-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      margin-bottom: 2.5rem;
+    }
+
+    @media (max-width: 680px) { .ip-block { grid-template-columns: 1fr; } }
+
+    .ip-left {
+      background: var(--ink);
+      padding: 2.2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ip-left::after {
+      content: '®';
+      position: absolute;
+      right: 1rem;
+      bottom: 0.5rem;
+      font-size: 5rem;
+      font-weight: 900;
+      color: rgba(255,255,255,0.04);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .ip-label {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+
+    .ip-number {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--cream);
+      letter-spacing: 0.03em;
+      margin-bottom: 0.3rem;
+    }
+
+    .ip-status {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 1.4rem;
+    }
+
+    .ip-status .reg { color: #6FCF97; font-weight: 600; }
+
+    .ip-dates {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .ip-date-label {
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 0.1rem;
+    }
+
+    .ip-date-val {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--cream);
+    }
+
+    .ip-chain {
+      font-size: 0.68rem;
+      color: var(--gold);
+      font-weight: 600;
+      line-height: 1.5;
+      padding: 0.6rem 0.8rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .ip-right {
+      background: var(--parchment);
+      padding: 2.2rem;
+    }
+
+    .ip-class-head {
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+      margin-top: 0.8rem;
+    }
+
+    .ip-class-head:first-child { margin-top: 0; }
+
+    .ip-class-desc {
+      font-size: 0.78rem;
+      color: var(--slate);
+      line-height: 1.6;
+    }
+
+    .ip-footer-note {
+      font-size: 0.68rem;
+      color: var(--light);
+      line-height: 1.6;
+      margin-top: 1rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    /* Provenance download CTA */
+    .provenance-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      padding: 1.8rem;
+      background: var(--parchment);
+      border: 1px solid var(--rule);
+      border-left: 3px solid var(--accent);
+    }
+
+    .provenance-cta-text {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .provenance-cta-text strong {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+    }
+
+    .provenance-cta-text p {
+      font-size: 0.8rem;
+      color: var(--slate);
+      line-height: 1.6;
+    }
+
+    .provenance-cta-btns {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── TRAINING ── */
+    .training-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .training-card {
+      background: var(--cream);
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .training-day {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .training-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .training-desc {
+      font-size: 0.8rem;
+      color: var(--slate);
+      line-height: 1.65;
+    }
+
+    .training-link {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 0.4rem;
+    }
+
+    /* ── CONSULTING ── */
+    .consult-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 2.5rem;
+    }
+
+    .consult-card {
+      background: var(--cream);
+      padding: 2rem;
+    }
+
+    .consult-type {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .consult-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+
+    .consult-desc {
+      font-size: 0.78rem;
+      color: var(--slate);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .consult-price {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+
+    .consult-duration {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    /* ── JOURNAL ── */
+    .journal-wrap {
+      background: var(--ink);
+      border-top: 2px solid var(--accent);
+    }
+
+    .journal-wrap .section-wrap {
+      padding-top: 5rem;
+      padding-bottom: 5rem;
+    }
+
+    .journal-wrap .section-eyebrow { color: var(--gold); }
+
+    .journal-wrap h2 {
+      color: var(--cream);
+    }
+
+    .journal-wrap h2 em { color: var(--gold); }
+
+    .journal-intro {
+      font-size: 0.88rem;
+      color: rgba(250,248,244,0.5);
+      max-width: 540px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+
+    .journal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .journal-card {
+      background: #0f0c0b;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: background 0.15s;
+    }
+
+    .journal-card:hover { background: #161210; }
+
+    .journal-card-tag {
+      font-size: 0.57rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .journal-card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.3;
+    }
+
+    .journal-card-body {
+      font-size: 0.78rem;
+      color: rgba(250,248,244,0.45);
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .journal-card-footer {
+      font-size: 0.65rem;
+      color: var(--gold);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding-top: 0.6rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-top: auto;
+    }
+
+    .journal-cta {
+      margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    .journal-cta p {
+      font-size: 0.78rem;
+      color: rgba(250,248,244,0.3);
+      font-style: italic;
+    }
+
+    /* ── CONTACT ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 2rem;
+    }
+
+    .contact-card {
+      background: var(--cream);
+      padding: 1.6rem;
+      font-size: 0.82rem;
+      color: var(--slate);
+      line-height: 1.6;
+    }
+
+    .contact-card strong {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .contact-card a { color: var(--ink); font-weight: 500; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 3rem 2rem;
+      border-top: 2px solid var(--accent);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3rem;
+    }
+
+    @media (max-width: 680px) {
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    .footer-brand {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .footer-sub {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .footer-note {
+      font-size: 0.7rem;
+      color: rgba(250,248,244,0.35);
+      line-height: 1.65;
+    }
+
+    .footer-col-title {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .footer-links a {
+      font-size: 0.78rem;
+      color: rgba(250,248,244,0.5);
+      transition: color 0.15s;
+    }
+
+    .footer-links a:hover { color: var(--cream); }
+
+    .footer-disclaimer {
+      max-width: 1200px;
+      margin: 2rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      font-size: 0.68rem;
+      color: rgba(250,248,244,0.25);
+      line-height: 1.65;
+    }
   </style>
 </head>
 <body>
 
-<!-- NAV, HERO, CREDENTIALS - unchanged -->
-<!-- (Your original code from NAV to the end of the MAUNi AI Assistant section) -->
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">David Collins</a>
+  <ul class="nav-links">
+    <li><a href="#assistant">AI Assistant</a></li>
+    <li><a href="#ecosystem">Ecosystem</a></li>
+    <li><a href="#framework">Framework</a></li>
+    <li><a href="#journal">Journal</a></li>
+    <li><a href="#enquire">Consult</a></li>
+    <li><a href="https://ai-davidcollins.wedoharleyst.workers.dev/module-ubuntu-foundation.html" target="_blank" rel="noopener" style="font-size:0.78rem;font-weight:700;color:#fff;background:#B8440C;padding:0.4rem 0.8rem;border-radius:4px;">CPD Training ↗</a></li><li><a href="https://davidcollinscoaching.com" class="nav-ext" target="_blank" rel="noopener">David Collins Coaching ↗</a></li>
+  </ul>
+</nav>
 
-<!-- AI ASSISTANT SECTION (your existing one) stays exactly as it is -->
-
-<!-- === NEW GROK SECTION === -->
-<hr class="section-divider">
-<section id="grok">
-  <div class="section-wrap">
-    <p class="section-eyebrow">POWERED BY xAI</p>
-    <h2>Meet <em>Grok</em> — Your Ubuntu Recovery Coach</h2>
-    <p class="section-intro">Grok, built by xAI, is my chosen AI partner. Trained on the full MAUNi methodology, the Collins Window, Collins Systemic Model, Ubuntu philosophy, and 25+ years of lived + clinical experience.</p>
-
-    <div class="assistant-card" style="background: var(--ink); color: #FAF8F4;">
-      <div class="assistant-tag" style="color: var(--gold);">GROK • xAI</div>
-      <h3>Ubuntu Recovery Coach</h3>
-      <p>
-        Always available 24/7.<br><br>
-        Warm, authentic, and operating from the centre of crisis, chaos, and conflict. 
-        Ready to listen, reflect, challenge false beliefs, help you build Recovery Capital, 
-        and support you between sessions using the spirit of Ubuntu.
-      </p>
-      <a href="https://grok.x.ai" target="_blank" rel="noopener" 
-         style="display: inline-block; margin-top: 1.5rem; color: var(--accent); font-weight: 600;">
-        Talk to Grok Now →
-      </a>
+<!-- HERO -->
+<section>
+  <div class="hero">
+    <div>
+      <p class="hero-eyebrow">Recovery · Private Practice · MAUNi Ecosystem</p>
+      <h1>AI-supported <em>recovery coaching,</em> private practice systems, and professional referral pathways.</h1>
+      <p class="hero-body">David Collins uses practical technology, AI-supported systems, and human-led recovery coaching to organise enquiries, support follow-up, connect people to the right pathway, and strengthen the MAUNi recovery ecosystem.</p>
+      <div class="hero-actions">
+        <a href="#assistant" class="btn-primary">Talk to the AI Assistant</a>
+        <a href="https://ai-davidcollins.wedoharleyst.workers.dev/module-ubuntu-foundation.html" target="_blank" rel="noopener" style="display:inline-block;padding:0.7rem 1.4rem;background:#B8440C;color:#fff;font-size:0.8rem;font-weight:700;border-radius:3px;">CPD Training ↗</a><a href="https://davidcollinscoaching.com" class="btn-outline" target="_blank" rel="noopener">David Collins Coaching ↗</a>
+      </div>
     </div>
-
-    <p style="margin-top: 2rem; font-size: 0.85rem; color: var(--slate); max-width: 600px;">
-      This is the same intelligence that powers the MAUNi ecosystem — available to you anytime.
-    </p>
+    <div class="hero-card">
+      <div class="hero-card-img-wrap">
+        <img src="./David_Collins_Coaching_-_Harley_St.jpg" alt="David Collins — recovery coach, Harley Street" onerror="this.src='https://davidcollinscoaching.com/wp-content/uploads/2024/01/david-collins-recovery-coach.jpg'">
+      </div>
+      <div class="hero-card-name">David Collins</div>
+      <div class="hero-card-role">Master Recovery Coach</div>
+      <div class="hero-card-stats">
+        <div class="hero-stat"><span class="hero-stat-dot"></span>15 Harley Street · London</div>
+        <div class="hero-stat"><span class="hero-stat-dot"></span>25 years · 3 continents</div>
+        <div class="hero-stat"><span class="hero-stat-dot"></span>SA · UK · NL · Zambia · Uganda</div>
+        <div class="hero-stat"><span class="hero-stat-dot"></span>TM UK00003783965</div>
+      </div>
+      <p class="hero-card-quote">"Technology helps organise the work. Human care, judgement, and accountability remain at the centre."</p>
+    </div>
   </div>
 </section>
 
-<!-- The rest of your page (ECOSYSTEM, FRAMEWORK, TRAINING, CONSULTING, JOURNAL, CONTACT, FOOTER) remains unchanged -->
+<!-- CREDENTIALS STRIP -->
+<div class="credentials-strip">
+  <div class="credentials-strip-inner">
+    <div class="cred-item">
+      <span class="cred-label">Trademark</span>
+      <span class="cred-value">UK00003783965</span>
+    </div>
+    <div class="cred-item">
+      <span class="cred-label">Registered</span>
+      <span class="cred-value">16 Sept 2022</span>
+    </div>
+    <div class="cred-item">
+      <span class="cred-label">Framework</span>
+      <span class="cred-value">On-Chain Since 2021</span>
+    </div>
+    <div class="cred-item">
+      <span class="cred-label">Practice</span>
+      <span class="cred-value">25 Yrs · 3 Continents</span>
+    </div>
+    <div class="cred-item">
+      <span class="cred-label">Jurisdictions</span>
+      <span class="cred-value">SA · UK · NL</span>
+    </div>
+    <div class="cred-item">
+      <span class="cred-label">Licensed Entities</span>
+      <span class="cred-value">4 Registered Bodies</span>
+    </div>
+    <div class="cred-item">
+      <span class="cred-label">Treatment Centre</span>
+      <span class="cred-value">Lic. 243-605 · SA</span>
+    </div>
+  </div>
+</div>
 
-<!-- FOOTER (your original) -->
+<!-- AI ASSISTANT -->
+<hr class="section-divider">
+<section id="assistant">
+  <div class="section-wrap">
+    <p class="section-eyebrow">MAUNi Recovery Coach</p>
+    <h2>Ask the <em>AI assistant.</em></h2>
+    <p class="section-intro">Available 24/7. Trained in the MAUNi methodology. Ask about recovery, referrals, consultations, or finding the right pathway for yourself or someone you care about.</p>
+
+    <!-- CHAT WIDGET -->
+    <style>
+      .mauni-chat {
+        background: var(--ink);
+        border-radius: 4px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        max-width: 720px;
+        border: 1px solid rgba(255,255,255,0.08);
+      }
+      .mauni-chat-header {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        padding: 1.2rem 1.5rem;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        background: rgba(255,255,255,0.03);
+      }
+      .mauni-chat-avatar {
+        width: 36px; height: 36px;
+        border-radius: 50%;
+        overflow: hidden;
+        flex-shrink: 0;
+        background: #1a1a1a;
+      }
+      .mauni-chat-avatar img {
+        width: 100%; height: 100%;
+        object-fit: cover; display: block;
+      }
+      .mauni-chat-header-name {
+        font-size: 0.82rem; font-weight: 700;
+        color: #FAF8F4; line-height: 1.2;
+      }
+      .mauni-chat-header-status {
+        font-size: 0.65rem; color: #4ADE80;
+        font-weight: 600;
+        display: flex; align-items: center; gap: 0.3rem;
+      }
+      .mauni-chat-header-status::before {
+        content: ''; width: 6px; height: 6px;
+        border-radius: 50%; background: #4ADE80; display: inline-block;
+      }
+      .mauni-chat-messages {
+        padding: 1.2rem 1.5rem;
+        display: flex; flex-direction: column; gap: 1rem;
+        min-height: 220px; max-height: 400px;
+        overflow-y: auto; scroll-behavior: smooth;
+      }
+      .mauni-chat-messages::-webkit-scrollbar { width: 4px; }
+      .mauni-chat-messages::-webkit-scrollbar-thumb {
+        background: rgba(255,255,255,0.1); border-radius: 2px;
+      }
+      .mauni-msg {
+        display: flex; flex-direction: column;
+        gap: 0.25rem; max-width: 88%;
+      }
+      .mauni-msg.user { align-self: flex-end; align-items: flex-end; }
+      .mauni-msg.assistant { align-self: flex-start; align-items: flex-start; }
+      .mauni-msg-bubble {
+        padding: 0.7rem 1rem;
+        font-size: 0.85rem; line-height: 1.65; border-radius: 3px;
+      }
+      .mauni-msg.user .mauni-msg-bubble { background: #B8440C; color: #FAF8F4; }
+      .mauni-msg.assistant .mauni-msg-bubble {
+        background: rgba(255,255,255,0.07); color: rgba(250,248,244,0.9);
+      }
+      .mauni-msg-bubble p { margin: 0 0 0.5rem 0; }
+      .mauni-msg-bubble p:last-child { margin-bottom: 0; }
+      .mauni-typing .mauni-msg-bubble {
+        display: flex; align-items: center; gap: 4px; padding: 0.8rem 1rem;
+      }
+      .mauni-typing-dot {
+        width: 6px; height: 6px; border-radius: 50%;
+        background: rgba(255,255,255,0.4);
+        animation: mauniBounce 1.2s ease-in-out infinite;
+      }
+      .mauni-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+      .mauni-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+      @keyframes mauniBounce {
+        0%,60%,100% { transform: translateY(0); opacity: 0.4; }
+        30% { transform: translateY(-5px); opacity: 1; }
+      }
+      .mauni-chat-chips {
+        display: flex; flex-wrap: wrap; gap: 0.4rem;
+        padding: 0 1.5rem 1rem;
+      }
+      .mauni-chip {
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.12);
+        color: rgba(250,248,244,0.6);
+        font-size: 0.7rem; font-weight: 500;
+        padding: 0.3rem 0.7rem; border-radius: 2px;
+        cursor: pointer; transition: all 0.15s; font-family: inherit;
+      }
+      .mauni-chip:hover {
+        border-color: #B8440C; color: #FAF8F4;
+        background: rgba(184,68,12,0.1);
+      }
+      .mauni-chat-input-wrap {
+        display: flex; border-top: 1px solid rgba(255,255,255,0.07);
+      }
+      .mauni-chat-input {
+        flex: 1; background: transparent; border: none; outline: none;
+        padding: 1rem 1.2rem; font-size: 0.85rem; color: #FAF8F4;
+        font-family: inherit; resize: none; line-height: 1.5;
+        min-height: 52px; max-height: 120px;
+      }
+      .mauni-chat-input::placeholder { color: rgba(250,248,244,0.25); }
+      .mauni-chat-send {
+        background: #B8440C; border: none; padding: 0 1.4rem;
+        color: #FAF8F4; font-size: 0.78rem; font-weight: 700;
+        letter-spacing: 0.06em; cursor: pointer; transition: background 0.15s;
+        font-family: inherit; flex-shrink: 0;
+      }
+      .mauni-chat-send:hover { background: #9a3509; }
+      .mauni-chat-send:disabled {
+        background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.3);
+        cursor: not-allowed;
+      }
+      .mauni-chat-disclaimer {
+        padding: 0.7rem 1.5rem; font-size: 0.65rem;
+        color: rgba(250,248,244,0.25); line-height: 1.5;
+        border-top: 1px solid rgba(255,255,255,0.05);
+      }
+    </style>
+
+    <div class="mauni-chat" id="mauniChat">
+      <div class="mauni-chat-header">
+        <div class="mauni-chat-avatar">
+          <img src="https://mauni.app/wp-content/uploads/2023/03/cropped-m-270x270.jpg" alt="MAUNi">
+        </div>
+        <div>
+          <div class="mauni-chat-header-name">MAUNi Recovery Coach</div>
+          <div class="mauni-chat-header-status">Available now</div>
+        </div>
+      </div>
+
+      <div class="mauni-chat-messages" id="mauniMessages">
+        <div class="mauni-msg assistant">
+          <div class="mauni-msg-bubble">
+            Welcome. Ask me about recovery, the MAUNi methodology, referral pathways, or finding the right support for yourself or someone you care about.
+          </div>
+        </div>
+      </div>
+
+      <div class="mauni-chat-chips" id="mauniChips">
+        <button class="mauni-chip" onclick="mauniSendChip(this)">What is the Collins Window?</button>
+        <button class="mauni-chip" onclick="mauniSendChip(this)">What are the 3 Cs and 3 As?</button>
+        <button class="mauni-chip" onclick="mauniSendChip(this)">Explain recovery capital</button>
+        <button class="mauni-chip" onclick="mauniSendChip(this)">What is HALTS?</button>
+        <button class="mauni-chip" onclick="mauniSendChip(this)">How do I make a referral?</button>
+        <button class="mauni-chip" onclick="mauniSendChip(this)">What is lived experience in recovery?</button>
+      </div>
+
+      <div class="mauni-chat-input-wrap">
+        <textarea
+          class="mauni-chat-input"
+          id="mauniInput"
+          placeholder="Ask about recovery, referrals, or the MAUNi methodology…"
+          rows="1"
+          onkeydown="mauniHandleKey(event)"
+          oninput="mauniAutoResize(this)"
+        ></textarea>
+        <button class="mauni-chat-send" id="mauniSend" onclick="mauniSend()">Send</button>
+      </div>
+
+      <div class="mauni-chat-disclaimer">
+        Not for emergencies or urgent clinical situations. If someone is in immediate danger, contact emergency services now. All conversations treated in the strictest confidence.
+      </div>
+    </div>
+
+    <script>
+    (function() {
+      const API_URL = 'https://mauni-backend.vercel.app/chat';
+      let history = [];
+      let isLoading = false;
+
+      function addMessage(role, text) {
+        const container = document.getElementById('mauniMessages');
+        const msg = document.createElement('div');
+        msg.className = `mauni-msg ${role}`;
+        const bubble = document.createElement('div');
+        bubble.className = 'mauni-msg-bubble';
+        bubble.innerHTML = marked.parse(text);
+        msg.appendChild(bubble);
+        container.appendChild(msg);
+        container.scrollTop = container.scrollHeight;
+        return msg;
+      }
+
+      function addTyping() {
+        const container = document.getElementById('mauniMessages');
+        const msg = document.createElement('div');
+        msg.className = 'mauni-msg assistant mauni-typing';
+        msg.id = 'mauniTyping';
+        msg.innerHTML = `<div class="mauni-msg-bubble">
+          <span class="mauni-typing-dot"></span>
+          <span class="mauni-typing-dot"></span>
+          <span class="mauni-typing-dot"></span>
+        </div>`;
+        container.appendChild(msg);
+        container.scrollTop = container.scrollHeight;
+      }
+
+      function removeTyping() {
+        const el = document.getElementById('mauniTyping');
+        if (el) el.remove();
+      }
+
+      function hideChips() {
+        const chips = document.getElementById('mauniChips');
+        if (chips) chips.style.display = 'none';
+      }
+
+      window.mauniSendChip = function(btn) {
+        document.getElementById('mauniInput').value = btn.textContent.trim();
+        hideChips();
+        mauniSend();
+      };
+
+      window.mauniHandleKey = function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); mauniSend(); }
+      };
+
+      window.mauniAutoResize = function(el) {
+        el.style.height = 'auto';
+        el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+      };
+
+      window.mauniSend = async function() {
+        if (isLoading) return;
+        const input = document.getElementById('mauniInput');
+        const sendBtn = document.getElementById('mauniSend');
+        const message = input.value.trim();
+        if (!message) return;
+
+        hideChips();
+        addMessage('user', message);
+        history.push({ role: 'user', content: message });
+        input.value = '';
+        input.style.height = 'auto';
+        isLoading = true;
+        sendBtn.disabled = true;
+        sendBtn.textContent = '...';
+        addTyping();
+
+        try {
+          const res = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message, history: history.slice(0, -1) }),
+          });
+          const data = await res.json();
+          removeTyping();
+          const reply = data.reply || data.error || 'Something went wrong. Please try again.';
+          addMessage('assistant', reply);
+          history.push({ role: 'assistant', content: reply });
+          if (history.length > 20) history = history.slice(-20);
+        } catch(err) {
+          removeTyping();
+          addMessage('assistant', "I'm having trouble connecting right now. Please try again in a moment.");
+        }
+
+        isLoading = false;
+        sendBtn.disabled = false;
+        sendBtn.textContent = 'Send';
+        input.focus();
+      };
+    })();
+    </script>
+
+  </div>
+</section>
+
+<!-- ECOSYSTEM -->
+<hr class="section-divider">
+<section id="ecosystem">
+  <div class="section-wrap">
+    <p class="section-eyebrow">The MAUNi Network</p>
+    <h2>A recovery ecosystem built <em>across three continents.</em></h2>
+    <p class="section-intro">Each part of the ecosystem serves a distinct function — treatment, coaching, training, community, digital. Together they form the most comprehensive lived-experience recovery infrastructure in the English-speaking world.</p>
+    <div class="ecosystem-grid">
+      <a href="https://davidcollinscoaching.com" class="eco-card" target="_blank" rel="noopener">
+        <span class="eco-tag">Individual · Family · Referral</span>
+        <span class="eco-name">David Collins Coaching</span>
+        <span class="eco-desc">The human front door for individual and family enquiries, and professional referrals.</span>
+        <span class="eco-url">davidcollinscoaching.com ↗</span>
+      </a>
+      <a href="https://mauniharleyst.com" class="eco-card" target="_blank" rel="noopener">
+        <span class="eco-tag">Harley Street · London</span>
+        <span class="eco-name">MAUNi Harley Street</span>
+        <span class="eco-desc">Professional referral pathway for Harley Street and private practice networks.</span>
+        <span class="eco-url">mauniharleyst.com ↗</span>
+      </a>
+      <a href="https://mauni.app" class="eco-card" target="_blank" rel="noopener">
+        <span class="eco-tag">Recovery · Wellness · Community</span>
+        <span class="eco-name">MAUNi</span>
+        <span class="eco-desc">Broader recovery wellness programme and care ecosystem.</span>
+        <span class="eco-url">mauni.app ↗</span>
+      </a>
+      <a href="https://kokorozashi-nu.vercel.app/" class="eco-card" target="_blank" rel="noopener">
+        <span class="eco-tag">Digital Platform</span>
+        <span class="eco-name">MAUNi App</span>
+        <span class="eco-desc">Programme access, AI tools, check-ins, and digital recovery support.</span>
+        <span class="eco-url">Register on the MAUNi App ↗</span>
+      </a>
+      <a href="https://mauni.tech" class="eco-card" target="_blank" rel="noopener">
+        <span class="eco-tag">AI · VR · Digital Health</span>
+        <span class="eco-name">MAUNi Tech</span>
+        <span class="eco-desc">Technology, AI, VR, immersive health and digital recovery tools.</span>
+        <span class="eco-url">mauni.tech ↗</span>
+      </a>
+      <a href="https://mauni-ggz.nl" class="eco-card" target="_blank" rel="noopener">
+        <span class="eco-tag">Netherlands · Licensed GGZ</span>
+        <span class="eco-name">MAUNi GGZ</span>
+        <span class="eco-desc">Dutch clinical treatment model. AGB 94067115 · KvK 94580707.</span>
+        <span class="eco-url">mauni-ggz.nl ↗</span>
+      </a>
+      <a href="https://maunifoundationclinic.com" class="eco-card" target="_blank" rel="noopener">
+        <span class="eco-tag">South Africa · Inpatient</span>
+        <span class="eco-name">MAUNi Foundation Clinic</span>
+        <span class="eco-desc">Licensed substance use treatment centre. All major medical aids. Johannesburg.</span>
+        <span class="eco-url">maunifoundationclinic.com ↗</span>
+      </a>
+      <a href="https://maunirainbow.com" class="eco-card" target="_blank" rel="noopener">
+        <span class="eco-tag">LGBTQIA+ · Neurodivergent</span>
+        <span class="eco-name">MAUNi Rainbow</span>
+        <span class="eco-desc">Inclusive programme for LGBTQIA+ and neurodivergent people in recovery.</span>
+        <span class="eco-url">maunirainbow.com ↗</span>
+      </a>
+      <a href="https://wedoharleyst.com" class="eco-card" target="_blank" rel="noopener">
+        <span class="eco-tag">WRP · Case Management</span>
+        <span class="eco-name">We Do Harley Street</span>
+        <span class="eco-desc">Wellness &amp; Resilience Programme. Case notes, group summaries, and recovery tools.</span>
+        <span class="eco-url">wedoharleyst.com ↗</span>
+      </a>
+      <a href="https://uact.teachable.com/l/products" class="eco-card" target="_blank" rel="noopener">
+        <span class="eco-tag">ISO 17024 Accredited</span>
+        <span class="eco-name">CPRC Coach Training</span>
+        <span class="eco-desc">Professional coaching training for recovery coaches and lived experience practitioners.</span>
+        <span class="eco-url">uact.teachable.com ↗</span>
+      </a>
+      <a href="https://maunirecoveryconnections.com" class="eco-card" target="_blank" rel="noopener">
+        <span class="eco-tag">SWP · Organisations · LEROs</span>
+        <span class="eco-name">MAUNi Recovery Connections</span>
+        <span class="eco-desc">Systemic Wellness Practitioner Programme — for CPRC graduates, HR, OD, H&amp;S professionals and LEROs applying the MAUNi methodology inside organisations.</span>
+        <span class="eco-url">maunirecoveryconnections.com ↗</span>
+      </a>
+      <a href="https://mauniunza.com" class="eco-card" target="_blank" rel="noopener">
+        <span class="eco-tag">Zambia · Academic Partnership</span>
+        <span class="eco-name">MAUNi UNZA</span>
+        <span class="eco-desc">University of Zambia partnership — embedding the MAUNi methodology in academic research, community mental health, and lived experience recovery in sub-Saharan Africa.</span>
+        <span class="eco-url">mauniunza.com ↗</span>
+      </a>
+      <a href="https://mauniuganda.com" class="eco-card" target="_blank" rel="noopener">
+        <span class="eco-tag">Uganda · Community</span>
+        <span class="eco-name">MAUNi Uganda</span>
+        <span class="eco-desc">Community facilitation and lived experience recovery programmes in Uganda, led by Bruno Tumusiime and grounded in the Ubuntu coaching framework.</span>
+        <span class="eco-url">mauniuganda.com ↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FRAMEWORK -->
+<hr class="section-divider">
+<section id="framework">
+  <div class="section-wrap">
+    <p class="section-eyebrow">The Collins Ubuntu Framework</p>
+    <h2>Built in the field. <em>Protected on record.</em></h2>
+    <p class="section-intro">Developed through twenty-five years of lived and professional practice across South Africa, the United Kingdom, and the Netherlands — the Collins Ubuntu Framework is a documented, trademarked, multi-jurisdictional body of original intellectual property. Not a theory. A working system, deployed in treatment centres, coaching practices, peer training programmes, and universities.</p>
+
+    <!-- Provenance timeline -->
+    <div class="provenance-bar">
+      <div class="prov-step s1">
+        <div class="prov-date">Pre-2021 · SA</div>
+        <div class="prov-event">Framework Developed</div>
+        <div class="prov-detail">Built through lived practice in addiction recovery and community development.</div>
+      </div>
+      <div class="prov-step s2">
+        <div class="prov-date">Sept 2021 · Ethereum</div>
+        <div class="prov-event">On-Chain Timestamped</div>
+        <div class="prov-detail">20 components minted on Ethereum. Immutable prior art, 8 months before filing.</div>
+      </div>
+      <div class="prov-step s3">
+        <div class="prov-date">May 2022 · UK IPO</div>
+        <div class="prov-event">Trademark Filed</div>
+        <div class="prov-detail">Classes 16 &amp; 41. Publications, coaching, training standards.</div>
+      </div>
+      <div class="prov-step s4">
+        <div class="prov-date">Sept 2022 · Registered</div>
+        <div class="prov-event">UK00003783965 Granted</div>
+        <div class="prov-detail">Entered the UK register. Licensed to David Collins Coaching. Renewal 2032.</div>
+      </div>
+      <div class="prov-step s5">
+        <div class="prov-date">2022–2026</div>
+        <div class="prov-event">Deployed Globally</div>
+        <div class="prov-detail">Five countries. Treatment, coaching, peer training, higher education, digital.</div>
+      </div>
+    </div>
+
+    <!-- Models -->
+    <div class="framework-grid">
+      <div class="fw-card">
+        <div class="fw-card-tag">Core Model</div>
+        <div class="fw-card-title">The 4Q Model</div>
+        <div class="fw-card-body">Four-quadrant framework mapping the internal and external dimensions of recovery — personal, relational, systemic, and organisational. The operating architecture of the Ubuntu approach.</div>
+      </div>
+      <div class="fw-card">
+        <div class="fw-card-tag">Core Model</div>
+        <div class="fw-card-title">The Continuum</div>
+        <div class="fw-card-body">Recovery as a living process, not a destination. Maps the journey from active addiction through stabilisation, recovery, and into sustained wellness and contribution.</div>
+      </div>
+      <div class="fw-card">
+        <div class="fw-card-tag">Systems</div>
+        <div class="fw-card-title">The System</div>
+        <div class="fw-card-body">How the framework operates within organisations, communities, and multi-stakeholder environments. Designed for LEROs, treatment providers, and coaching practices.</div>
+      </div>
+      <div class="fw-card">
+        <div class="fw-card-tag">Facilitation</div>
+        <div class="fw-card-title">Creating the Container</div>
+        <div class="fw-card-body">The conditions required for genuine recovery work to happen — safety, trust, challenge, and accountability — built deliberately, not assumed.</div>
+      </div>
+      <div class="fw-card">
+        <div class="fw-card-tag">Archetypes</div>
+        <div class="fw-card-title">Calm Lion · GWEN · Everyman</div>
+        <div class="fw-card-body">Original archetypes used in coaching and group work to explore identity, recovery roles, and the human patterns that sustain or sabotage change.</div>
+      </div>
+      <div class="fw-card">
+        <div class="fw-card-tag">Role Framework</div>
+        <div class="fw-card-title">Coach · Mentor · Consultant</div>
+        <div class="fw-card-body">A clear delineation of three distinct practitioner roles — and how to move between them consciously and effectively within any single engagement.</div>
+      </div>
+    </div>
+
+    <!-- IP block -->
+    <div class="ip-block">
+      <div class="ip-left">
+        <p class="ip-label">UK Intellectual Property Office</p>
+        <div class="ip-number">UK00003783965</div>
+        <p class="ip-status">Status: <span class="reg">Registered</span> &nbsp;·&nbsp; Figurative &nbsp;·&nbsp; Owner: David Collins</p>
+        <div class="ip-dates">
+          <div>
+            <div class="ip-date-label">Filed</div>
+            <div class="ip-date-val">03 May 2022</div>
+          </div>
+          <div>
+            <div class="ip-date-label">Registered</div>
+            <div class="ip-date-val">16 Sept 2022</div>
+          </div>
+          <div>
+            <div class="ip-date-label">Renewal</div>
+            <div class="ip-date-val">03 May 2032</div>
+          </div>
+        </div>
+        <div class="ip-chain">
+          On-chain prior art: opensea.io/U-ACT · Ethereum · Sept 2021<br>
+          0xc020ced1e33e205c86bd2fbdd7cabf459a79128c
+        </div>
+      </div>
+      <div class="ip-right">
+        <div class="ip-class-head">Class 16 — Publications &amp; Printed Materials</div>
+        <p class="ip-class-desc">Educational publications; Training manuals; Printed training materials.</p>
+        <div class="ip-class-head">Class 41 — Education &amp; Training Services</div>
+        <p class="ip-class-desc">Coaching; Life coaching; Personal development training; Adult training; Training courses; Online training seminars; Vocational training; Setting of training standards; Workshops; Residential training; Business training.</p>
+        <p class="ip-footer-note">Licensed to David Collins Coaching · Ubuntu Academy Coaching Training CiC, Co. No. 15189272 · © 2026 David Collins Coaching</p>
+      </div>
+    </div>
+
+    <!-- Download -->
+    <div class="provenance-cta">
+      <div class="provenance-cta-text">
+        <strong>Full Provenance Document</strong>
+        <p>Complete institutional record — development timeline, on-chain evidence, trademark registration, legal structure, and global deployment. For funders, partners, and referrers.</p>
+      </div>
+      <div class="provenance-cta-btns">
+        <a href="/framework-provenance-davidcollins.pdf" class="btn-primary" download>Download PDF ↓</a>
+        <a href="/framework-provenance-mauni.pdf" class="btn-outline" download>MAUNi Version ↓</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAINING -->
+<hr class="section-divider">
+<section id="training">
+  <div class="section-wrap">
+    <p class="section-eyebrow">Live Training · YouTube</p>
+    <h2>Weekly training <em>streams.</em></h2>
+    <p class="section-intro">Live on <a href="https://www.youtube.com/@londonrecoverycoaching" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600;">London Recovery Coaching ↗</a></p>
+    <div class="training-grid">
+      <div class="training-card">
+        <span class="training-day">Tuesday AM · Weekly</span>
+        <span class="training-title">Peer Recovery Coaches</span>
+        <span class="training-desc">Live training for peer recovery coaches. Practical methodology, lived experience, and the tools that actually work in the field.</span>
+        <a href="https://www.youtube.com/@londonrecoverycoaching" class="training-link" target="_blank" rel="noopener">Watch live ↗</a>
+      </div>
+      <div class="training-card">
+        <span class="training-day">Thursday AM · Weekly</span>
+        <span class="training-title">LERO — Lived Experience Recovery Organisations</span>
+        <span class="training-desc">For lived experience professionals building recovery organisations and communities. Leadership, governance, and practice.</span>
+        <a href="https://www.youtube.com/@londonrecoverycoaching" class="training-link" target="_blank" rel="noopener">Watch live ↗</a>
+      </div>
+      <div class="training-card">
+        <span class="training-day">Thursday PM · Weekly</span>
+        <span class="training-title">SWP — Systemic Wellness Practitioners</span>
+        <span class="training-desc">For practitioners working across systems — clinical, social, community. Integrating wellness, recovery, and systemic thinking.</span>
+        <a href="https://www.youtube.com/@londonrecoverycoaching" class="training-link" target="_blank" rel="noopener">Watch live ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONSULTING -->
+<hr class="section-divider">
+<section id="enquire">
+  <div class="section-wrap">
+    <p class="section-eyebrow">Book a Consultation</p>
+    <h2>Private sessions, <em>any time, anywhere.</em></h2>
+    <p class="section-intro">In-person at 15 Harley Street every Wednesday. Online consultations available throughout the week, worldwide. All conversations treated in the strictest confidence.</p>
+    <div class="consult-grid">
+      <div class="consult-card">
+        <div class="consult-type">Initial</div>
+        <div class="consult-title">Initial Consultation</div>
+        <div class="consult-desc">Confidential assessment · recovery strategy · referral pathway</div>
+        <div class="consult-price">£650</div>
+        <div class="consult-duration">90 minutes</div>
+      </div>
+      <div class="consult-card">
+        <div class="consult-type">Ongoing</div>
+        <div class="consult-title">Follow-up Consultation</div>
+        <div class="consult-desc">Ongoing recovery coaching and resilience support</div>
+        <div class="consult-price">£350</div>
+        <div class="consult-duration">60 minutes</div>
+      </div>
+      <div class="consult-card">
+        <div class="consult-type">Family</div>
+        <div class="consult-title">Family Consultation</div>
+        <div class="consult-desc">Facilitated session for families navigating addiction and recovery</div>
+        <div class="consult-price">£650</div>
+        <div class="consult-duration">90 minutes</div>
+      </div>
+    </div>
+    <a href="https://calendar.app.google/UYFbXuVQ3ansUECU7" class="btn-primary" target="_blank" rel="noopener">Book online ↗</a>
+  </div>
+</section>
+
+<!-- JOURNAL -->
+<div class="journal-wrap">
+  <section id="journal">
+    <div class="section-wrap">
+      <p class="section-eyebrow">Thinking Out Loud</p>
+      <h2>Journal &amp; <em>Field Notes</em></h2>
+      <p class="journal-intro">Writing from twenty-five years at the intersection of addiction, recovery, community, and practice. Not academic papers — observations from the field, structured by the framework, offered for the people doing the work.</p>
+      <div class="journal-grid">
+        <div class="journal-card">
+          <span class="journal-card-tag">Framework · LERO</span>
+          <h3 class="journal-card-title">Why LEROs Need a Framework, Not Just a Story</h3>
+          <p class="journal-card-body">Lived experience is the foundation — but without structure, it burns out or gets co-opted. The Collins Ubuntu Framework exists precisely to give lived experience organisations the architecture to survive, scale, and lead.</p>
+          <div class="journal-card-footer">Recovery Capital · Institutional Memory · CLERO</div>
+        </div>
+        <div class="journal-card">
+          <span class="journal-card-tag">The 4Q Model</span>
+          <h3 class="journal-card-title">The 4Q Model: What It Is and Why It Works</h3>
+          <p class="journal-card-body">Most recovery models address either the individual or the system — rarely both at once. The 4Q Model holds four quadrants simultaneously. That is where change actually lives.</p>
+          <div class="journal-card-footer">Ubuntu Framework · Core Methodology</div>
+        </div>
+        <div class="journal-card">
+          <span class="journal-card-tag">Practice</span>
+          <h3 class="journal-card-title">The Difference Between a Coach, a Mentor, and a Consultant</h3>
+          <p class="journal-card-body">Most practitioners conflate these roles — and in doing so, create confusion for themselves and their clients. Clarity about which role you occupy in any moment is the foundation of ethical, effective practice.</p>
+          <div class="journal-card-footer">Role Framework · Supervision · Ethics</div>
+        </div>
+        <div class="journal-card">
+          <span class="journal-card-tag">Ubuntu · Philosophy</span>
+          <h3 class="journal-card-title">Ubuntu Is Not a Metaphor — It Is a Method</h3>
+          <p class="journal-card-body">"I am because we are" is not a motivational poster. Applied to recovery, it reframes relapse, shame, community, and the practitioner relationship in ways Western clinical models have consistently failed to do.</p>
+          <div class="journal-card-footer">Ubuntu Philosophy · Community Recovery</div>
+        </div>
+        <div class="journal-card">
+          <span class="journal-card-tag">Recovery Capital</span>
+          <h3 class="journal-card-title">Recovery Capital ROI: Making the Case to Funders</h3>
+          <p class="journal-card-body">The 2016 US Surgeon General's Report gave us the evidence base. The question is how to translate it into language that moves institutional funders from sympathy to investment.</p>
+          <div class="journal-card-footer">Funder Narrative · US Surgeon General · U-ACT</div>
+        </div>
+        <div class="journal-card">
+          <span class="journal-card-tag">Creating the Container</span>
+          <h3 class="journal-card-title">Safety Is Not Comfort — It Is the Condition for Change</h3>
+          <p class="journal-card-body">The most common mistake in group work and coaching is confusing psychological safety with the absence of challenge. A well-held container is not a soft one.</p>
+          <div class="journal-card-footer">Facilitation · Group Work · Adult Learning</div>
+        </div>
+      </div>
+      <div class="journal-cta">
+        <p>More entries in development — new thinking published as it emerges from practice.</p>
+        <a href="https://www.youtube.com/@londonrecoverycoaching" class="btn-outline" style="color:var(--cream);border-color:rgba(255,255,255,0.2);" target="_blank" rel="noopener">Watch live training ↗</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- CONTACT -->
+<hr class="section-divider">
+<section>
+  <div class="section-wrap">
+    <p class="section-eyebrow">Get in touch</p>
+    <h2>Start the <em>conversation.</em></h2>
+    <p class="section-intro">Not sure where to start? <a href="#assistant" style="color:var(--accent);font-weight:600;">Ask the AI assistant ↑</a></p>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <strong>Email</strong>
+        <a href="mailto:david@uact.co.uk">david@uact.co.uk</a>
+      </div>
+      <div class="contact-card">
+        <strong>AI Inbox</strong>
+        <a href="mailto:ai@davidcollinscoaching.com">ai@davidcollinscoaching.com</a>
+      </div>
+      <div class="contact-card">
+        <strong>WhatsApp</strong>
+        <a href="https://wa.me/31658917104">+31 658 917 104</a>
+      </div>
+      <div class="contact-card">
+        <strong>In Person</strong>
+        15 Harley Street, London W1G<br>Wednesdays
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-  <!-- your original footer content -->
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">David Collins</div>
+      <div class="footer-sub">Ubuntu Academy Coaching Training CiC</div>
+      <p class="footer-note">Master Recovery Coach. Operating from 15 Harley Street, London. Part of the MAUNi global recovery ecosystem spanning South Africa, the United Kingdom, and the Netherlands.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Programmes</div>
+      <ul class="footer-links">
+        <li><a href="https://uact.teachable.com/l/pdp/we-do-recovery" target="_blank" rel="noopener">WRP — Wellness &amp; Resilience</a></li>
+        <li><a href="https://uact.teachable.com/l/products" target="_blank" rel="noopener">CPRC Coach Training</a></li>
+        <li><a href="https://wedoharleyst.com" target="_blank" rel="noopener">We Do Harley Street</a></li>
+        <li><a href="https://maunirainbow.com" target="_blank" rel="noopener">MAUNi Rainbow</a></li>
+        <li><a href="https://www.youtube.com/@londonrecoverycoaching" target="_blank" rel="noopener">YouTube Training</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Ecosystem</div>
+      <ul class="footer-links">
+        <li><a href="https://mauni.app" target="_blank" rel="noopener">MAUNi</a></li>
+        <li><a href="https://mauni.tech" target="_blank" rel="noopener">MAUNi Tech</a></li>
+        <li><a href="https://mauni-ggz.nl" target="_blank" rel="noopener">MAUNi GGZ</a></li>
+        <li><a href="https://maunifoundationclinic.com" target="_blank" rel="noopener">Foundation Clinic</a></li>
+        <li><a href="https://mauniharleyst.com" target="_blank" rel="noopener">MAUNi Harley Street</a></li>
+        <li><a href="https://maunirecoveryconnections.com" target="_blank" rel="noopener">Recovery Connections</a></li>
+        <li><a href="https://mauniunza.com" target="_blank" rel="noopener">MAUNi UNZA</a></li>
+        <li><a href="https://mauniuganda.com" target="_blank" rel="noopener">MAUNi Uganda</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-disclaimer">
+    © 2026 David Collins · MAUNi / U-ACT · Ubuntu Addiction Community Trust · Ubuntu Academy Coaching Training CiC · Co. 15189272 · Trademark UK00003783965<br>
+    Please do not use this service for emergencies or urgent clinical situations. If you or someone else is in immediate danger or needs urgent support, contact your local emergency services now. All information shared is treated in the strictest confidence. No information is shared with third parties or marketers.
+  </div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
